@@ -1,0 +1,26 @@
+{
+  "name": "mc-rcon",
+  "version": "1.0.0",
+  "description": "A Minecraft RCON wrapper",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "tsc",
+    "example": "npm run build && node ./dist/example/minecraft.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joachimdalen/mc-rcon.git"
+  },
+  "author": "Joachim Dalen <joachim@dalenapps.no> (https://joachimdalen.no)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joachimdalen/mc-rcon/issues"
+  },
+  "homepage": "https://github.com/joachimdalen/mc-rcon#readme",
+  "devDependencies": {
+    "@types/node": "^12.0.2",
+    "typescript": "^3.4.5"
+  }
+}
