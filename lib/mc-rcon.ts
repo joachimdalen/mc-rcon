@@ -82,7 +82,7 @@ export class McRcon extends EventEmitter {
       var id = data.readInt32LE(4);
       var type = data.readInt32LE(8);
       if (size >= 10 && data.length >= size + 4) {
-        if (id != this._reqID) {
+        if (id === -1) {
           this.emit("error", new Error("Authentication failed"));
         }
         if (!this._isAuthenticated && type == PacketType.AUTH_RES) {
