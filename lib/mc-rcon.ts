@@ -13,7 +13,6 @@ export class McRcon extends EventEmitter {
   _bufferData: any;
   _socket!: net.Socket;
 
-
   constructor(host: string, port: number, password: string) {
     super();
     if (!(this instanceof McRcon)) return new McRcon(host, port, password);
@@ -28,8 +27,9 @@ export class McRcon extends EventEmitter {
       return;
     }
     cmd = cmd || PacketType.COMMAND;
-    id = id || this._reqID;
+    id = id || this._reqID++;
     this._sendRawPacket(this._encodePacket(data, cmd, id));
+    return id;
   }
 
   connect() {
