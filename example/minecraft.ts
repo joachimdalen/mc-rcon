@@ -1,10 +1,12 @@
-import { IPacket, McRcon } from "../lib";
+import { IPacket, McRcon, PacketType } from "../lib";
 
-var connection = new McRcon("localhost", 25575, "P@ssW0rd23");
-connection
+const rCon = new McRcon("localhost", 25575, "P@ssW0rd23");
+var sentMessageId: number;
+rCon
   .on("authenticated", () => {
     console.info("Authenticated with Minecraft server");
-    connection.send("say Hello");
+    sentMessageId = rCon.send("whitelist list") || -1;
+    rCon.send("say Hello");
   })
   .on("data", (data: string) => {
     console.log(`Received data: ${data}`);
@@ -20,5 +22,13 @@ connection
   })
   .on("packet", (packet: IPacket) => {
     console.log(`Received packet: `, packet);
+    
+    if (packet.reqID == sentMessageId) {
+      console.log("Got whitelist");
+      console.log(packet.data);
+    }
   });
-connection.connect();
+rCon.connect();
+setTimeout(() => {
+  rCon.disconnect();
+}, 1000 * 15);
